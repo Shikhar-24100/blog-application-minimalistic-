@@ -165,16 +165,30 @@ export default function BlogEditor() {
             </h2>
             <div className="flex items-center space-x-4">
               <Button
+                type="button"
                 variant="outline"
-                onClick={() => onSubmit(form.getValues(), "draft")}
-                disabled={isPending || !form.formState.isValid}
+                onClick={(e) => {
+                  e.preventDefault();
+                  const values = form.getValues();
+                  if (values.title && values.content && values.excerpt) {
+                    onSubmit(values, "draft");
+                  }
+                }}
+                disabled={isPending}
                 className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 transition-all"
               >
                 Save Draft
               </Button>
               <Button
-                onClick={() => onSubmit(form.getValues(), "published")}
-                disabled={isPending || !form.formState.isValid}
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const values = form.getValues();
+                  if (values.title && values.content && values.excerpt) {
+                    onSubmit(values, "published");
+                  }
+                }}
+                disabled={isPending}
                 className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 font-medium transition-colors"
               >
                 {isPending ? "Saving..." : "Publish"}
@@ -183,65 +197,32 @@ export default function BlogEditor() {
           </div>
         </div>
 
-        <Form {...form}>
-          <form className="space-y-6">
-            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
-              {/* Editor Header */}
-              <div className="border-b border-slate-200 dark:border-slate-700 p-6 space-y-4">
-                <FormField
-                  control={form.control}
-                  name="title"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          placeholder="Post title..."
-                          className="w-full text-3xl font-bold bg-transparent border-none outline-none placeholder-slate-400 dark:placeholder-slate-500 text-slate-900 dark:text-slate-100 p-0 focus:ring-0 focus:ring-offset-0 h-auto"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="excerpt"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          placeholder="Brief description or excerpt..."
-                          className="w-full text-lg bg-transparent border-none outline-none placeholder-slate-400 dark:placeholder-slate-500 text-slate-600 dark:text-slate-400 p-0 focus:ring-0 focus:ring-offset-0 h-auto"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              
-              {/* Editor Content */}
-              <FormField
-                control={form.control}
-                name="content"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <RichTextEditor
-                        value={field.value}
-                        onChange={field.onChange}
-                        className="border-none"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+        <div className="space-y-6">
+          <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+            {/* Editor Header */}
+            <div className="border-b border-slate-200 dark:border-slate-700 p-6 space-y-4">
+              <Input
+                value={form.watch("title")}
+                onChange={(e) => form.setValue("title", e.target.value)}
+                placeholder="Post title..."
+                className="w-full text-3xl font-bold bg-transparent border-none outline-none placeholder-slate-400 dark:placeholder-slate-500 text-slate-900 dark:text-slate-100 p-0 focus:ring-0 focus:ring-offset-0 h-auto"
+              />
+              <Input
+                value={form.watch("excerpt")}
+                onChange={(e) => form.setValue("excerpt", e.target.value)}
+                placeholder="Brief description or excerpt..."
+                className="w-full text-lg bg-transparent border-none outline-none placeholder-slate-400 dark:placeholder-slate-500 text-slate-600 dark:text-slate-400 p-0 focus:ring-0 focus:ring-offset-0 h-auto"
               />
             </div>
-          </form>
-        </Form>
+            
+            {/* Editor Content */}
+            <RichTextEditor
+              value={form.watch("content")}
+              onChange={(value) => form.setValue("content", value)}
+              className="border-none"
+            />
+          </div>
+        </div>
       </main>
     </div>
   );

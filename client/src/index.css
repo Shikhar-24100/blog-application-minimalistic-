@@ -4,106 +4,96 @@
 @tailwind utilities;
 
 :root {
-  --background: hsl(0, 0%, 100%);
-  --foreground: hsl(210, 25%, 7.8%);
+  --background: hsl(0, 0%, 98%);
+  --foreground: hsl(240, 10%, 10%);
   --card: hsl(0, 0%, 100%);
-  --card-foreground: hsl(210, 25%, 7.8%);
+  --card-foreground: hsl(240, 10%, 10%);
   --popover: hsl(0, 0%, 100%);
-  --popover-foreground: hsl(210, 25%, 7.8%);
-  --primary: hsl(217, 91%, 60%);
+  --popover-foreground: hsl(240, 10%, 10%);
+  --primary: hsl(240, 100%, 65%);
   --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(210, 40%, 98%);
-  --secondary-foreground: hsl(210, 11%, 15%);
-  --muted: hsl(210, 40%, 98%);
-  --muted-foreground: hsl(215, 13%, 43%);
-  --accent: hsl(210, 40%, 98%);
-  --accent-foreground: hsl(210, 11%, 15%);
-  --destructive: hsl(0, 84%, 60%);
+  --secondary: hsl(240, 4.8%, 95.9%);
+  --secondary-foreground: hsl(240, 5.9%, 10%);
+  --muted: hsl(240, 4.8%, 95.9%);
+  --muted-foreground: hsl(240, 3.8%, 46.1%);
+  --accent: hsl(240, 4.8%, 95.9%);
+  --accent-foreground: hsl(240, 5.9%, 10%);
+  --destructive: hsl(0, 72%, 51%);
   --destructive-foreground: hsl(0, 0%, 100%);
-  --border: hsl(214, 32%, 91%);
-  --input: hsl(214, 32%, 91%);
-  --ring: hsl(217, 91%, 60%);
-  --radius: 0.75rem;
+  --border: hsl(240, 5.9%, 90%);
+  --input: hsl(240, 5.9%, 90%);
+  --ring: hsl(240, 100%, 65%);
+  --radius: 0.5rem;
   
-  /* Blog-specific colors */
-  --slate-50: hsl(210, 40%, 98%);
-  --slate-100: hsl(210, 40%, 96%);
-  --slate-200: hsl(214, 32%, 91%);
-  --slate-300: hsl(213, 27%, 84%);
-  --slate-400: hsl(215, 20%, 65%);
-  --slate-500: hsl(215, 16%, 47%);
-  --slate-600: hsl(215, 19%, 35%);
-  --slate-700: hsl(215, 25%, 27%);
-  --slate-800: hsl(217, 33%, 17%);
-  --slate-900: hsl(222, 84%, 5%);
+  /* Clean minimal colors */
+  --slate-50: hsl(0, 0%, 98%);
+  --slate-100: hsl(240, 4.8%, 95.9%);
+  --slate-200: hsl(240, 5.9%, 90%);
+  --slate-300: hsl(240, 4.8%, 83.9%);
+  --slate-400: hsl(240, 3.8%, 46.1%);
+  --slate-500: hsl(240, 3.8%, 35%);
+  --slate-600: hsl(240, 5.2%, 23.9%);
+  --slate-700: hsl(240, 5.3%, 14.9%);
+  --slate-800: hsl(240, 3.7%, 15.9%);
+  --slate-900: hsl(240, 10%, 10%);
   
-  --blue-400: hsl(213, 94%, 68%);
-  --blue-500: hsl(217, 91%, 60%);
-  --blue-600: hsl(221, 83%, 53%);
-  --blue-700: hsl(224, 76%, 48%);
+  --blue-500: hsl(240, 100%, 65%);
+  --blue-600: hsl(240, 100%, 55%);
   
-  --green-100: hsl(142, 76%, 93%);
-  --green-400: hsl(141, 69%, 58%);
-  --green-700: hsl(145, 63%, 42%);
-  --green-900: hsl(147, 61%, 20%);
+  --green-100: hsl(149, 80%, 90%);
+  --green-500: hsl(142, 76%, 36%);
   
-  --yellow-100: hsl(54, 92%, 95%);
-  --yellow-400: hsl(45, 93%, 58%);
-  --yellow-700: hsl(35, 77%, 49%);
-  --yellow-900: hsl(28, 73%, 26%);
+  --yellow-100: hsl(55, 92%, 88%);
+  --yellow-500: hsl(45, 93%, 47%);
   
-  --red-500: hsl(0, 84%, 60%);
+  --red-500: hsl(0, 72%, 51%);
   
   --font-inter: 'Inter', sans-serif;
 }
 
 .dark {
-  --background: hsl(222, 84%, 5%);
-  --foreground: hsl(210, 40%, 98%);
-  --card: hsl(217, 33%, 17%);
-  --card-foreground: hsl(210, 40%, 98%);
-  --popover: hsl(222, 84%, 5%);
-  --popover-foreground: hsl(210, 40%, 98%);
-  --primary: hsl(213, 94%, 68%);
-  --primary-foreground: hsl(222, 84%, 5%);
-  --secondary: hsl(217, 33%, 17%);
-  --secondary-foreground: hsl(210, 40%, 98%);
-  --muted: hsl(217, 33%, 17%);
-  --muted-foreground: hsl(215, 20%, 65%);
-  --accent: hsl(217, 33%, 17%);
-  --accent-foreground: hsl(210, 40%, 98%);
-  --destructive: hsl(0, 84%, 60%);
-  --destructive-foreground: hsl(210, 40%, 98%);
-  --border: hsl(217, 33%, 17%);
-  --input: hsl(217, 33%, 17%);
-  --ring: hsl(213, 94%, 68%);
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --primary: hsl(240, 100%, 75%);
+  --primary-foreground: hsl(240, 5.9%, 10%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --ring: hsl(240, 100%, 75%);
   
-  /* Dark mode slate colors */
-  --slate-50: hsl(222, 84%, 5%);
-  --slate-100: hsl(217, 33%, 17%);
-  --slate-200: hsl(215, 25%, 27%);
-  --slate-300: hsl(215, 19%, 35%);
-  --slate-400: hsl(215, 16%, 47%);
-  --slate-500: hsl(215, 20%, 65%);
-  --slate-600: hsl(213, 27%, 84%);
-  --slate-700: hsl(217, 33%, 17%);
-  --slate-800: hsl(217, 33%, 17%);
-  --slate-900: hsl(210, 40%, 98%);
+  /* Dark reading mode colors */
+  --slate-50: hsl(240, 10%, 3.9%);
+  --slate-100: hsl(240, 3.7%, 15.9%);
+  --slate-200: hsl(240, 5.9%, 10%);
+  --slate-300: hsl(240, 5%, 26%);
+  --slate-400: hsl(240, 5%, 64.9%);
+  --slate-500: hsl(240, 3.8%, 46.1%);
+  --slate-600: hsl(240, 5%, 84%);
+  --slate-700: hsl(240, 5.2%, 33.9%);
+  --slate-800: hsl(240, 3.7%, 15.9%);
+  --slate-900: hsl(0, 0%, 98%);
   
-  --blue-400: hsl(213, 94%, 68%);
-  --blue-500: hsl(217, 91%, 60%);
-  --blue-600: hsl(221, 83%, 53%);
-  --blue-700: hsl(224, 76%, 48%);
+  --blue-500: hsl(240, 100%, 75%);
+  --blue-600: hsl(240, 100%, 65%);
   
-  --green-100: hsl(147, 61%, 20%);
-  --green-400: hsl(141, 69%, 58%);
-  --green-700: hsl(145, 63%, 42%);
-  --green-900: hsl(147, 61%, 20%);
+  --green-100: hsl(149, 80%, 20%);
+  --green-500: hsl(142, 76%, 36%);
   
-  --yellow-100: hsl(28, 73%, 26%);
-  --yellow-400: hsl(45, 93%, 58%);
-  --yellow-700: hsl(35, 77%, 49%);
-  --yellow-900: hsl(28, 73%, 26%);
+  --yellow-100: hsl(55, 92%, 18%);
+  --yellow-500: hsl(45, 93%, 47%);
+  
+  --red-500: hsl(0, 72%, 51%);
 }
 
 @layer base {

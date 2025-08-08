@@ -13,27 +13,28 @@ export function ReadingMode({ post, isOpen, onClose }: ReadingModeProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-white dark:bg-slate-900 z-50 overflow-y-auto">
-      <div className="max-w-2xl mx-auto px-4 py-16">
+    <div className="fixed inset-0 bg-amber-50 dark:bg-amber-50 z-50 overflow-y-auto">
+      <div className="max-w-3xl mx-auto px-6 py-16">
         <div className="mb-8">
           <Button
             variant="ghost"
             onClick={onClose}
-            className="flex items-center text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors mb-6 -ml-2"
+            className="flex items-center text-amber-800 hover:text-amber-900 transition-colors mb-6 -ml-2 bg-amber-100 hover:bg-amber-200 rounded-lg"
           >
             <X className="h-4 w-4 mr-2" />
             Exit Reading Mode
           </Button>
         </div>
         
-        <article className="prose-blog">
-          <h1 className="text-5xl font-bold text-slate-900 dark:text-slate-100 mb-8 leading-tight">
+        <article className="prose-reading">
+          <h1 className="text-5xl font-bold text-amber-900 mb-8 leading-tight font-serif">
             {post.title}
           </h1>
           
           <div 
-            className="text-xl text-slate-700 dark:text-slate-300 leading-relaxed space-y-8"
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            className="text-xl text-amber-800 leading-relaxed space-y-8 font-serif"
+            style={{ lineHeight: '1.8' }}
+            dangerouslySetInnerHTML={{ __html: post.content.replace(/\n/g, '<br />') }}
           />
         </article>
       </div>

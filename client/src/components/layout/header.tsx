@@ -30,30 +30,26 @@ export function Header({ onSearch }: HeaderProps) {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+    <header className="sticky top-0 z-50 bg-white/95 dark:bg-slate-50/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
       <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center space-x-8">
           <Link href="/">
-            <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400 cursor-pointer">
+            <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-500 cursor-pointer hover:text-blue-700 dark:hover:text-blue-400 transition-colors">
               MiniBlog
             </h1>
           </Link>
           <nav className="hidden md:flex items-center space-x-6">
-            <Link href="/">
-              <a className={cn(
-                "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 transition-colors",
-                location === "/" && "text-slate-900 dark:text-slate-100 font-medium"
-              )}>
-                All Posts
-              </a>
+            <Link href="/" className={cn(
+              "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 transition-colors",
+              location === "/" && "text-slate-900 dark:text-slate-100 font-medium"
+            )}>
+              All Posts
             </Link>
-            <Link href="/drafts">
-              <a className={cn(
-                "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 transition-colors",
-                location === "/drafts" && "text-slate-900 dark:text-slate-100 font-medium"
-              )}>
-                Drafts
-              </a>
+            <Link href="/drafts" className={cn(
+              "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 transition-colors",
+              location === "/drafts" && "text-slate-900 dark:text-slate-100 font-medium"
+            )}>
+              Drafts
             </Link>
           </nav>
         </div>
@@ -82,7 +78,7 @@ export function Header({ onSearch }: HeaderProps) {
           </Button>
           
           <Link href="/editor">
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 font-medium">
+            <Button className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 text-white px-4 py-2 font-medium">
               <Plus className="h-4 w-4 mr-2" />
               New Post
             </Button>

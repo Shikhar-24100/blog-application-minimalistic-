@@ -1,5 +1,6 @@
 import { type BlogPost, type InsertBlogPost, type UpdateBlogPost } from "@shared/schema";
 import { randomUUID } from "crypto";
+import { MongoStorage } from "./mongodb-storage";
 
 export interface IStorage {
   // Blog post operations
@@ -96,4 +97,5 @@ export class MemStorage implements IStorage {
   }
 }
 
+// Use in-memory storage for now (MongoDB can be configured later)
 export const storage = new MemStorage();

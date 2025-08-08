@@ -12,9 +12,14 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
+  const ownerKey = localStorage.getItem("ownerKey") || "";
+  
   const res = await fetch(url, {
     method,
-    headers: data ? { "Content-Type": "application/json" } : {},
+    headers: {
+      ...(data ? { "Content-Type": "application/json" } : {}),
+      ...(ownerKey ? { "x-auth-key": ownerKey } : {}),
+    },
     body: data ? JSON.stringify(data) : undefined,
     credentials: "include",
   });
@@ -29,7 +34,10 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
+    const ownerKey = localStorage.getItem("ownerKey") || "";
+    
     const res = await fetch(queryKey.join("/") as string, {
+      headers: ownerKey ? { "x-auth-key": ownerKey } : {},
       credentials: "include",
     });
 

@@ -8,6 +8,7 @@ import { Header } from "@/components/layout/header";
 import { ReadingMode } from "@/components/blog/reading-mode";
 import { formatDate } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { useOwnerAuth } from "@/hooks/useOwnerAuth";
 import { apiRequest } from "@/lib/queryClient";
 import { cn } from "@/lib/utils";
 import { parseMarkdown } from "@/lib/markdown";
@@ -18,6 +19,7 @@ export default function BlogPostPage() {
   const [, navigate] = useLocation();
   const [isReadingMode, setIsReadingMode] = useState(false);
   const { toast } = useToast();
+  const { isOwner } = useOwnerAuth();
   const queryClient = useQueryClient();
 
   const postId = params?.id;
@@ -153,24 +155,28 @@ export default function BlogPostPage() {
                 <BookOpen className="h-4 w-4 mr-2" />
                 Reading Mode
               </Button>
-              <Link href={`/editor?id=${post.id}`}>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all"
-                >
-                  <Edit className="h-4 w-4" />
-                </Button>
-              </Link>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={handleDelete}
-                disabled={deleteMutation.isPending}
-                className="p-2 text-slate-400 hover:text-red-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all"
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
+              {isOwner && (
+                <>
+                  <Link href={`/editor?id=${post.id}`}>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all"
+                    >
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={handleDelete}
+                    disabled={deleteMutation.isPending}
+                    className="p-2 text-slate-400 hover:text-red-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>

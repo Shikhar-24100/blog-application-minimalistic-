@@ -4,7 +4,30 @@ import { storage } from "./storage";
 import { insertBlogPostSchema, updateBlogPostSchema } from "@shared/schema";
 import { z } from "zod";
 
+// Simple authentication middleware
+const isOwner = (req: any, res: any, next: any) => {
+  const authKey = req.headers['x-auth-key'] || req.query.key;
+  const ownerKey = process.env.OWNER_KEY;
+  
+  if (!ownerKey) {
+    return res.status(500).json({ message: "Owner key not configured" });
+  }
+  
+  if (authKey !== ownerKey) {
+    return res.status(403).json({ message: "Access denied. Owner only." });
+  }
+  
+  next();
+};
+
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Check if user is owner (for frontend)
+  app.get("/api/auth/check", (req, res) => {
+    const authKey = req.headers['x-auth-key'] || req.query.key;
+    const ownerKey = process.env.OWNER_KEY;
+    const isOwner = ownerKey && authKey === ownerKey;
+    res.json({ isOwner });
+  });
   // Get all blog posts
   app.get("/api/posts", async (req, res) => {
     try {
@@ -47,8 +70,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Create new blog post
-  app.post("/api/posts", async (req, res) => {
+  // Create new blog post (owner only)
+  app.post("/api/posts", isOwner, async (req, res) => {
     try {
       const validatedData = insertBlogPostSchema.parse(req.body);
       const post = await storage.createBlogPost(validatedData);
@@ -61,8 +84,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Update blog post
-  app.patch("/api/posts/:id", async (req, res) => {
+  // Update blog post (owner only)
+  app.patch("/api/posts/:id", isOwner, async (req, res) => {
     try {
       const { id } = req.params;
       const validatedData = updateBlogPostSchema.parse(req.body);
@@ -79,8 +102,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Delete blog post
-  app.delete("/api/posts/:id", async (req, res) => {
+  // Delete blog post (owner only)
+  app.delete("/api/posts/:id", isOwner, async (req, res) => {
     try {
       const { id } = req.params;
       const deleted = await storage.deleteBlogPost(id);

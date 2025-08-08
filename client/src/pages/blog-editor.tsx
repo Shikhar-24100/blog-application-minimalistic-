@@ -10,6 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import { Header } from "@/components/layout/header";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { useToast } from "@/hooks/use-toast";
+import { useOwnerAuth } from "@/hooks/useOwnerAuth";
 import { apiRequest } from "@/lib/queryClient";
 import { insertBlogPostSchema, updateBlogPostSchema } from "@shared/schema";
 import type { BlogPost, InsertBlogPost, UpdateBlogPost } from "@shared/schema";
@@ -27,7 +28,20 @@ export default function BlogEditor() {
   const [, navigate] = useLocation();
   const searchParams = useSearch();
   const { toast } = useToast();
+  const { isOwner, isLoading: isAuthLoading } = useOwnerAuth();
   const queryClient = useQueryClient();
+
+  // Redirect non-owners to home
+  useEffect(() => {
+    if (!isAuthLoading && !isOwner) {
+      toast({
+        title: "Access denied",
+        description: "Only the owner can create and edit posts.",
+        variant: "destructive",
+      });
+      navigate("/");
+    }
+  }, [isOwner, isAuthLoading, navigate, toast]);
   
   // Parse the post ID from URL params
   const urlParams = new URLSearchParams(searchParams);

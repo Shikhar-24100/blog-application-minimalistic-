@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Search, BookOpen, Book, Plus, LogIn, LogOut, User } from "lucide-react";
+import { Search, BookOpen, Book, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTheme } from "@/hooks/use-theme";
-import { useAuth } from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
 
 interface HeaderProps {
@@ -14,7 +13,6 @@ interface HeaderProps {
 export function Header({ onSearch }: HeaderProps) {
   const [location] = useLocation();
   const { theme, toggleTheme } = useTheme();
-  const { user, isAuthenticated, isLoading } = useAuth();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -74,54 +72,12 @@ export function Header({ onSearch }: HeaderProps) {
             )}
           </Button>
           
-          {!isLoading && (
-            <>
-              {isAuthenticated ? (
-                <>
-                  <Link href="/editor">
-                    <Button className="bg-gray-900 hover:bg-gray-800 dark:bg-primary dark:hover:bg-primary/90 text-white dark:text-primary-foreground px-4 py-2 font-medium text-sm rounded-md">
-                      <Plus className="h-4 w-4 mr-2" />
-                      Write
-                    </Button>
-                  </Link>
-                  
-                  <div className="flex items-center space-x-3">
-                    {user?.profileImageUrl ? (
-                      <img 
-                        src={user.profileImageUrl} 
-                        alt="Profile" 
-                        className="w-8 h-8 rounded-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-8 h-8 rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
-                        <User className="h-4 w-4 text-gray-600 dark:text-gray-300" />
-                      </div>
-                    )}
-                    
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => window.location.href = "/api/logout"}
-                      className="text-gray-600 dark:text-muted-foreground hover:text-gray-900 dark:hover:text-foreground"
-                    >
-                      <LogOut className="h-4 w-4 mr-2" />
-                      Logout
-                    </Button>
-                  </div>
-                </>
-              ) : (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => window.location.href = "/api/login"}
-                  className="border-gray-300 dark:border-border text-gray-700 dark:text-foreground hover:bg-gray-50 dark:hover:bg-accent"
-                >
-                  <LogIn className="h-4 w-4 mr-2" />
-                  Login
-                </Button>
-              )}
-            </>
-          )}
+          <Link href="/editor">
+            <Button className="bg-gray-900 hover:bg-gray-800 dark:bg-primary dark:hover:bg-primary/90 text-white dark:text-primary-foreground px-4 py-2 font-medium text-sm rounded-md">
+              <Plus className="h-4 w-4 mr-2" />
+              Write
+            </Button>
+          </Link>
         </div>
       </div>
       

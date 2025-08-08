@@ -26,7 +26,6 @@ Preferred communication style: Simple, everyday language.
 - **Development**: Hot reload with Vite dev server integration
 
 ### Key Features
-- **Authentication System**: Replit-based OpenID Connect authentication for secure access control
 - **Content Management**: Full CRUD operations for blog posts (create, read, update, delete)
 - **Rich Text Editor**: Markdown-style editor with formatting toolbar and live preview
 - **Markdown Rendering**: Full markdown support with proper styling for bold, headings, links, code, lists, and blockquotes
@@ -36,13 +35,10 @@ Preferred communication style: Simple, everyday language.
 - **View Tracking**: Post view counters with automatic increment
 - **Responsive Design**: Mobile-first responsive layout
 - **Theme Support**: Light/dark theme switching with persistence
-- **Access Control**: Only authenticated users can create/edit posts, others can read only
 
 ### Database Schema
 The application uses a PostgreSQL-compatible schema via Drizzle ORM:
 - **blog_posts** table with fields for id, title, content, excerpt, status, timestamps, reading time, and view count
-- **users** table for Replit authentication with id, email, names, profile image, and timestamps
-- **sessions** table for secure session management with PostgreSQL storage
 - Type-safe schema definitions with Zod validation
 - Prepared for database migration with Drizzle Kit
 

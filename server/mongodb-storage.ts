@@ -59,7 +59,7 @@ export class MongoStorage implements IStorage {
       status: doc.status,
       createdAt: doc.createdAt,
       updatedAt: doc.updatedAt,
-      readingTime: doc.readingTime,
+      readingTime: doc.readingTime || null,
       views: doc.views,
     };
   }

@@ -103,5 +103,17 @@ export class MemStorage implements IStorage {
 
 }
 
-// Use in-memory storage for now (MongoDB can be configured later)
-export const storage = new MemStorage();
+// Switch to MongoDB storage using environment variable
+const mongoUri = process.env.MONGODB_URI;
+
+function createStorage(): IStorage {
+  if (!mongoUri) {
+    console.warn('MONGODB_URI not found, falling back to in-memory storage');
+    return new MemStorage();
+  } else {
+    console.log('Using MongoDB storage');
+    return new MongoStorage(mongoUri);
+  }
+}
+
+export const storage = createStorage();

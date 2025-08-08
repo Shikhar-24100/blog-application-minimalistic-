@@ -7,7 +7,7 @@ export function useOwnerAuth() {
   );
 
   const { data, isLoading } = useQuery({
-    queryKey: ["/api/auth/check"],
+    queryKey: ["/api/auth/check", ownerKey],
     queryFn: async () => {
       const response = await fetch("/api/auth/check", {
         headers: ownerKey ? { "x-auth-key": ownerKey } : {},

@@ -185,6 +185,11 @@ export default function BlogEditor() {
                       hasContent: !!values.content, 
                       hasExcerpt: !!values.excerpt 
                     });
+                    toast({
+                      title: "Missing required fields",
+                      description: "Please add a title and content to save your draft.",
+                      variant: "destructive"
+                    });
                   }
                 }}
                 disabled={isPending}
@@ -212,6 +217,11 @@ export default function BlogEditor() {
                       hasContent: !!values.content, 
                       hasExcerpt: !!values.excerpt 
                     });
+                    toast({
+                      title: "Missing required fields",
+                      description: "Please add a title and content to publish your article.",
+                      variant: "destructive"
+                    });
                   }
                 }}
                 disabled={isPending}
@@ -230,7 +240,7 @@ export default function BlogEditor() {
               <Input
                 value={form.watch("title")}
                 onChange={(e) => form.setValue("title", e.target.value)}
-                placeholder="Article title..."
+                placeholder="Article title... (required)"
                 className="w-full text-3xl font-bold bg-transparent border-none outline-none placeholder-gray-400 dark:placeholder-muted-foreground text-gray-900 dark:text-foreground p-0 focus:ring-0 focus:ring-offset-0 h-auto font-serif"
               />
               <Input

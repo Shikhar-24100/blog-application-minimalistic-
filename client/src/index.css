@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(210, 25%, 7.8%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(210, 25%, 7.8%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(210, 25%, 7.8%);
+  --primary: hsl(217, 91%, 60%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(210, 40%, 98%);
+  --secondary-foreground: hsl(210, 11%, 15%);
+  --muted: hsl(210, 40%, 98%);
+  --muted-foreground: hsl(215, 13%, 43%);
+  --accent: hsl(210, 40%, 98%);
+  --accent-foreground: hsl(210, 11%, 15%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(214, 32%, 91%);
+  --input: hsl(214, 32%, 91%);
+  --ring: hsl(217, 91%, 60%);
+  --radius: 0.75rem;
+  
+  /* Blog-specific colors */
+  --slate-50: hsl(210, 40%, 98%);
+  --slate-100: hsl(210, 40%, 96%);
+  --slate-200: hsl(214, 32%, 91%);
+  --slate-300: hsl(213, 27%, 84%);
+  --slate-400: hsl(215, 20%, 65%);
+  --slate-500: hsl(215, 16%, 47%);
+  --slate-600: hsl(215, 19%, 35%);
+  --slate-700: hsl(215, 25%, 27%);
+  --slate-800: hsl(217, 33%, 17%);
+  --slate-900: hsl(222, 84%, 5%);
+  
+  --blue-400: hsl(213, 94%, 68%);
+  --blue-500: hsl(217, 91%, 60%);
+  --blue-600: hsl(221, 83%, 53%);
+  --blue-700: hsl(224, 76%, 48%);
+  
+  --green-100: hsl(142, 76%, 93%);
+  --green-400: hsl(141, 69%, 58%);
+  --green-700: hsl(145, 63%, 42%);
+  --green-900: hsl(147, 61%, 20%);
+  
+  --yellow-100: hsl(54, 92%, 95%);
+  --yellow-400: hsl(45, 93%, 58%);
+  --yellow-700: hsl(35, 77%, 49%);
+  --yellow-900: hsl(28, 73%, 26%);
+  
+  --red-500: hsl(0, 84%, 60%);
+  
+  --font-inter: 'Inter', sans-serif;
+}
+
+.dark {
+  --background: hsl(222, 84%, 5%);
+  --foreground: hsl(210, 40%, 98%);
+  --card: hsl(217, 33%, 17%);
+  --card-foreground: hsl(210, 40%, 98%);
+  --popover: hsl(222, 84%, 5%);
+  --popover-foreground: hsl(210, 40%, 98%);
+  --primary: hsl(213, 94%, 68%);
+  --primary-foreground: hsl(222, 84%, 5%);
+  --secondary: hsl(217, 33%, 17%);
+  --secondary-foreground: hsl(210, 40%, 98%);
+  --muted: hsl(217, 33%, 17%);
+  --muted-foreground: hsl(215, 20%, 65%);
+  --accent: hsl(217, 33%, 17%);
+  --accent-foreground: hsl(210, 40%, 98%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(210, 40%, 98%);
+  --border: hsl(217, 33%, 17%);
+  --input: hsl(217, 33%, 17%);
+  --ring: hsl(213, 94%, 68%);
+  
+  /* Dark mode slate colors */
+  --slate-50: hsl(222, 84%, 5%);
+  --slate-100: hsl(217, 33%, 17%);
+  --slate-200: hsl(215, 25%, 27%);
+  --slate-300: hsl(215, 19%, 35%);
+  --slate-400: hsl(215, 16%, 47%);
+  --slate-500: hsl(215, 20%, 65%);
+  --slate-600: hsl(213, 27%, 84%);
+  --slate-700: hsl(217, 33%, 17%);
+  --slate-800: hsl(217, 33%, 17%);
+  --slate-900: hsl(210, 40%, 98%);
+  
+  --blue-400: hsl(213, 94%, 68%);
+  --blue-500: hsl(217, 91%, 60%);
+  --blue-600: hsl(221, 83%, 53%);
+  --blue-700: hsl(224, 76%, 48%);
+  
+  --green-100: hsl(147, 61%, 20%);
+  --green-400: hsl(141, 69%, 58%);
+  --green-700: hsl(145, 63%, 42%);
+  --green-900: hsl(147, 61%, 20%);
+  
+  --yellow-100: hsl(28, 73%, 26%);
+  --yellow-400: hsl(45, 93%, 58%);
+  --yellow-700: hsl(35, 77%, 49%);
+  --yellow-900: hsl(28, 73%, 26%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-inter);
+    font-feature-settings: 'cv11', 'ss01';
+    font-variation-settings: 'opsz' 32;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-inter);
+    font-variation-settings: 'opsz' 32;
+  }
+}
+
+@layer components {
+  .animate-fadeIn {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .animate-slideUp {
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .prose-blog {
+    @apply max-w-none;
+  }
+  
+  .prose-blog h1 {
+    @apply text-4xl font-bold text-slate-900 dark:text-slate-100 mb-6 leading-tight;
+  }
+  
+  .prose-blog h2 {
+    @apply text-2xl font-bold text-slate-900 dark:text-slate-100 mt-12 mb-6;
+  }
+  
+  .prose-blog p {
+    @apply text-xl text-slate-700 dark:text-slate-300 leading-relaxed mb-6;
+  }
+  
+  .prose-blog blockquote {
+    @apply border-l-4 border-blue-500 pl-6 my-8 text-slate-600 dark:text-slate-400 italic text-lg;
+  }
+  
+  .prose-blog ul {
+    @apply space-y-2 text-slate-700 dark:text-slate-300 mb-6;
+  }
+  
+  .prose-blog li {
+    @apply relative pl-6;
+  }
+  
+  .prose-blog li::before {
+    @apply absolute left-0 top-0 text-blue-500;
+    content: '•';
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

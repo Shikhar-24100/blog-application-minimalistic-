@@ -144,24 +144,24 @@ export default function BlogEditor() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900 transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-background transition-colors duration-300">
       <Header />
       
-      <main className="max-w-4xl mx-auto px-4 py-8">
+      <main className="max-w-4xl mx-auto px-6 py-8">
         <div className="mb-8">
           <Link href="/">
             <Button 
               variant="ghost" 
-              className="flex items-center text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors mb-6 -ml-2"
+              className="flex items-center text-gray-600 dark:text-muted-foreground hover:text-gray-900 dark:hover:text-foreground transition-colors mb-6 -ml-2"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to posts
+              Back to articles
             </Button>
           </Link>
           
           <div className="flex items-center justify-between">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-              {isEditing ? "Edit Post" : "Create New Post"}
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-foreground tracking-tight">
+              {isEditing ? "Edit Article" : "Write New Article"}
             </h2>
             <div className="flex items-center space-x-4">
               <Button
@@ -170,12 +170,25 @@ export default function BlogEditor() {
                 onClick={(e) => {
                   e.preventDefault();
                   const values = form.getValues();
-                  if (values.title && values.content && values.excerpt) {
-                    onSubmit(values, "draft");
+                  console.log("Draft button clicked, form values:", values);
+                  if (values.title && values.content) {
+                    console.log("Draft validation passed, submitting...");
+                    // Auto-generate excerpt from content if empty
+                    const finalValues = {
+                      ...values,
+                      excerpt: values.excerpt || values.content.substring(0, 150) + "..."
+                    };
+                    onSubmit(finalValues, "draft");
+                  } else {
+                    console.log("Draft validation failed:", { 
+                      hasTitle: !!values.title, 
+                      hasContent: !!values.content, 
+                      hasExcerpt: !!values.excerpt 
+                    });
                   }
                 }}
                 disabled={isPending}
-                className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 transition-all"
+                className="text-gray-600 dark:text-muted-foreground hover:text-gray-900 dark:hover:text-foreground px-4 py-2 rounded-md border border-gray-200 dark:border-border hover:border-gray-300 dark:hover:border-ring transition-all text-sm"
               >
                 Save Draft
               </Button>
@@ -184,34 +197,47 @@ export default function BlogEditor() {
                 onClick={(e) => {
                   e.preventDefault();
                   const values = form.getValues();
-                  if (values.title && values.content && values.excerpt) {
-                    onSubmit(values, "published");
+                  console.log("Button clicked, form values:", values);
+                  if (values.title && values.content) {
+                    console.log("Validation passed, submitting...");
+                    // Auto-generate excerpt from content if empty
+                    const finalValues = {
+                      ...values,
+                      excerpt: values.excerpt || values.content.substring(0, 150) + "..."
+                    };
+                    onSubmit(finalValues, "published");
+                  } else {
+                    console.log("Validation failed:", { 
+                      hasTitle: !!values.title, 
+                      hasContent: !!values.content, 
+                      hasExcerpt: !!values.excerpt 
+                    });
                   }
                 }}
                 disabled={isPending}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 font-medium transition-colors"
+                className="bg-gray-900 hover:bg-gray-800 dark:bg-primary dark:hover:bg-primary/90 text-white dark:text-primary-foreground px-6 py-2 font-medium transition-colors text-sm rounded-md"
               >
-                {isPending ? "Saving..." : "Publish"}
+                {isPending ? "Publishing..." : "Publish"}
               </Button>
             </div>
           </div>
         </div>
 
         <div className="space-y-6">
-          <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+          <div className="bg-white dark:bg-card rounded-lg border border-gray-200 dark:border-border">
             {/* Editor Header */}
-            <div className="border-b border-slate-200 dark:border-slate-700 p-6 space-y-4">
+            <div className="border-b border-gray-200 dark:border-border p-6 space-y-4">
               <Input
                 value={form.watch("title")}
                 onChange={(e) => form.setValue("title", e.target.value)}
-                placeholder="Post title..."
-                className="w-full text-3xl font-bold bg-transparent border-none outline-none placeholder-slate-400 dark:placeholder-slate-500 text-slate-900 dark:text-slate-100 p-0 focus:ring-0 focus:ring-offset-0 h-auto"
+                placeholder="Article title..."
+                className="w-full text-3xl font-bold bg-transparent border-none outline-none placeholder-gray-400 dark:placeholder-muted-foreground text-gray-900 dark:text-foreground p-0 focus:ring-0 focus:ring-offset-0 h-auto font-serif"
               />
               <Input
                 value={form.watch("excerpt")}
                 onChange={(e) => form.setValue("excerpt", e.target.value)}
-                placeholder="Brief description or excerpt..."
-                className="w-full text-lg bg-transparent border-none outline-none placeholder-slate-400 dark:placeholder-slate-500 text-slate-600 dark:text-slate-400 p-0 focus:ring-0 focus:ring-offset-0 h-auto"
+                placeholder="Brief description..."
+                className="w-full text-lg bg-transparent border-none outline-none placeholder-gray-400 dark:placeholder-muted-foreground text-gray-600 dark:text-muted-foreground p-0 focus:ring-0 focus:ring-offset-0 h-auto"
               />
             </div>
             

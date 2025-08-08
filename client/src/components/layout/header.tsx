@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Search, Moon, Sun, Plus } from "lucide-react";
+import { Search, BookOpen, Book, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTheme } from "@/hooks/use-theme";
@@ -30,57 +30,52 @@ export function Header({ onSearch }: HeaderProps) {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 dark:bg-slate-50/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
-      <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+    <header className="sticky top-0 z-50 bg-white dark:bg-background border-b border-gray-200 dark:border-border">
+      <div className="max-w-4xl mx-auto px-6 py-5 flex items-center justify-between">
         <div className="flex items-center space-x-8">
           <Link href="/">
-            <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-500 cursor-pointer hover:text-blue-700 dark:hover:text-blue-400 transition-colors">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-foreground cursor-pointer tracking-tight">
               MiniBlog
             </h1>
           </Link>
-          <nav className="hidden md:flex items-center space-x-6">
+          <nav className="hidden md:flex items-center space-x-8">
             <Link href="/" className={cn(
-              "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 transition-colors",
-              location === "/" && "text-slate-900 dark:text-slate-100 font-medium"
+              "text-sm font-medium text-gray-600 dark:text-muted-foreground hover:text-gray-900 dark:hover:text-foreground transition-colors",
+              location === "/" && "text-gray-900 dark:text-foreground"
             )}>
-              All Posts
-            </Link>
-            <Link href="/drafts" className={cn(
-              "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 transition-colors",
-              location === "/drafts" && "text-slate-900 dark:text-slate-100 font-medium"
-            )}>
-              Drafts
+              Articles
             </Link>
           </nav>
         </div>
         
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-3">
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setIsSearchOpen(!isSearchOpen)}
-            className="p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="p-2 text-gray-500 hover:text-gray-900 dark:text-muted-foreground dark:hover:text-foreground hover:bg-gray-100 dark:hover:bg-accent transition-colors"
           >
-            <Search className="h-5 w-5" />
+            <Search className="h-4 w-4" />
           </Button>
           
           <Button
             variant="ghost"
             size="icon"
             onClick={toggleTheme}
-            className="p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="p-2 text-gray-500 hover:text-gray-900 dark:text-muted-foreground dark:hover:text-foreground hover:bg-gray-100 dark:hover:bg-accent transition-colors"
+            title={theme === "light" ? "Switch to reading mode" : "Switch to light mode"}
           >
-            {theme === "dark" ? (
-              <Sun className="h-5 w-5" />
+            {theme === "light" ? (
+              <BookOpen className="h-4 w-4" />
             ) : (
-              <Moon className="h-5 w-5" />
+              <Book className="h-4 w-4" />
             )}
           </Button>
           
           <Link href="/editor">
-            <Button className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 text-white px-4 py-2 font-medium">
+            <Button className="bg-gray-900 hover:bg-gray-800 dark:bg-primary dark:hover:bg-primary/90 text-white dark:text-primary-foreground px-4 py-2 font-medium text-sm rounded-md ml-2">
               <Plus className="h-4 w-4 mr-2" />
-              New Post
+              Write
             </Button>
           </Link>
         </div>
@@ -88,17 +83,17 @@ export function Header({ onSearch }: HeaderProps) {
       
       {/* Search Bar */}
       {isSearchOpen && (
-        <div className="border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800">
-          <div className="max-w-4xl mx-auto px-4 py-4">
+        <div className="border-t border-gray-200 dark:border-border bg-gray-50 dark:bg-accent">
+          <div className="max-w-4xl mx-auto px-6 py-4">
             <form onSubmit={handleSearch} className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-4 w-4" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
               <Input
                 type="text"
-                placeholder="Search posts..."
+                placeholder="Search articles..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className="w-full pl-10 pr-4 py-3 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 bg-white dark:bg-background border border-gray-200 dark:border-border rounded-md focus:ring-1 focus:ring-gray-900 dark:focus:ring-ring focus:border-gray-900 dark:focus:border-ring text-sm"
                 autoFocus
               />
             </form>

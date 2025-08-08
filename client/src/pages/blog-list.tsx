@@ -78,28 +78,26 @@ export default function BlogList() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-white dark:bg-slate-900 transition-colors duration-300">
+      <div className="min-h-screen bg-white dark:bg-background transition-colors duration-300">
         <Header onSearch={handleSearch} />
-        <main className="max-w-4xl mx-auto px-4 py-8">
-          <div className="space-y-8">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="bg-white dark:bg-slate-800 rounded-xl p-8 border border-slate-200 dark:border-slate-700 animate-pulse">
-                <div className="flex items-start justify-between mb-4">
+        <main className="max-w-4xl mx-auto px-6 py-12">
+          <div className="space-y-12">
+            <div className="text-center space-y-4 py-8">
+              <h1 className="text-5xl font-bold text-gray-900 dark:text-foreground tracking-tight">Articles</h1>
+              <p className="text-lg text-gray-600 dark:text-muted-foreground">Loading articles...</p>
+            </div>
+            <div className="space-y-8">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="bg-white dark:bg-card rounded-lg p-8 border border-gray-200 dark:border-border animate-pulse">
+                  <div className="bg-gray-200 dark:bg-muted h-8 rounded mb-3 w-3/4"></div>
+                  <div className="bg-gray-200 dark:bg-muted h-16 rounded mb-4"></div>
                   <div className="flex items-center space-x-4">
-                    <div className="bg-slate-200 dark:bg-slate-700 px-3 py-1 rounded-full w-20 h-6"></div>
-                    <div className="bg-slate-200 dark:bg-slate-700 w-24 h-4 rounded"></div>
+                    <div className="bg-gray-200 dark:bg-muted w-20 h-4 rounded"></div>
+                    <div className="bg-gray-200 dark:bg-muted w-16 h-4 rounded"></div>
                   </div>
                 </div>
-                <div className="bg-slate-200 dark:bg-slate-700 h-8 rounded mb-3"></div>
-                <div className="bg-slate-200 dark:bg-slate-700 h-20 rounded mb-4"></div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-6">
-                    <div className="bg-slate-200 dark:bg-slate-700 w-20 h-4 rounded"></div>
-                    <div className="bg-slate-200 dark:bg-slate-700 w-16 h-4 rounded"></div>
-                  </div>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </main>
       </div>
@@ -113,34 +111,35 @@ export default function BlogList() {
     : `${postCount} ${postCount === 1 ? 'post' : 'posts'} ${filter === 'all' ? 'total' : filter}`;
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900 transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-background transition-colors duration-300">
       <Header onSearch={handleSearch} />
       
-      <main className="max-w-4xl mx-auto px-4 py-8">
-        <div className="space-y-8">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                {pageTitle}
-              </h2>
-              <p className="text-slate-600 dark:text-slate-400 mt-2">
-                {postCountText}
-              </p>
-            </div>
-            <div className="flex items-center space-x-4">
-              {!isDraftsPage && (
+      <main className="max-w-4xl mx-auto px-6 py-12">
+        <div className="space-y-12">
+          <div className="text-center space-y-4 py-8">
+            <h1 className="text-5xl font-bold text-gray-900 dark:text-foreground tracking-tight">
+              {isDraftsPage ? "Drafts" : "Articles"}
+            </h1>
+            <p className="text-lg text-gray-600 dark:text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              {isDraftsPage 
+                ? "Work in progress and unpublished content"
+                : "Thoughts, insights, and ideas worth sharing"
+              }
+            </p>
+            {!isDraftsPage && (
+              <div className="flex justify-center pt-4">
                 <Select value={filter} onValueChange={setFilter}>
-                  <SelectTrigger className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none w-32">
+                  <SelectTrigger className="w-48 bg-gray-50 dark:bg-input border-gray-200 dark:border-border text-sm">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Posts</SelectItem>
+                    <SelectItem value="all">All Articles</SelectItem>
                     <SelectItem value="published">Published</SelectItem>
                     <SelectItem value="drafts">Drafts</SelectItem>
                   </SelectContent>
                 </Select>
-              )}
-            </div>
+              </div>
+            )}
           </div>
 
           {filteredPosts.length === 0 ? (

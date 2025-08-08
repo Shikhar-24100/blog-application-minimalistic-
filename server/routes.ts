@@ -3,8 +3,11 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertBlogPostSchema, updateBlogPostSchema } from "@shared/schema";
 import { z } from "zod";
+import { setupAuth, isAuthenticated } from "./replitAuth";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Setup authentication middleware
+  await setupAuth(app);
   // Get all blog posts
   app.get("/api/posts", async (req, res) => {
     try {
@@ -47,8 +50,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Create new blog post
-  app.post("/api/posts", async (req, res) => {
+  // Auth route to get current user
+  app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const user = await storage.getUser(userId);
+      res.json(user);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      res.status(500).json({ message: "Failed to fetch user" });
+    }
+  });
+
+  // Create new blog post (protected route)
+  app.post("/api/posts", isAuthenticated, async (req, res) => {
     try {
       const validatedData = insertBlogPostSchema.parse(req.body);
       const post = await storage.createBlogPost(validatedData);
@@ -61,8 +76,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Update blog post
-  app.patch("/api/posts/:id", async (req, res) => {
+  // Update blog post (protected route)
+  app.patch("/api/posts/:id", isAuthenticated, async (req, res) => {
     try {
       const { id } = req.params;
       const validatedData = updateBlogPostSchema.parse(req.body);
@@ -79,8 +94,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Delete blog post
-  app.delete("/api/posts/:id", async (req, res) => {
+  // Delete blog post (protected route)
+  app.delete("/api/posts/:id", isAuthenticated, async (req, res) => {
     try {
       const { id } = req.params;
       const deleted = await storage.deleteBlogPost(id);

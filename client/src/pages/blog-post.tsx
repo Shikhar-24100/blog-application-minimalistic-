@@ -10,6 +10,7 @@ import { formatDate } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { cn } from "@/lib/utils";
+import { parseMarkdown } from "@/lib/markdown";
 import type { BlogPost } from "@shared/schema";
 
 export default function BlogPostPage() {
@@ -119,10 +120,10 @@ export default function BlogPostPage() {
   const status = statusConfig[post.status as keyof typeof statusConfig];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900 transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-background transition-colors duration-300">
       <Header />
       
-      <main className="max-w-4xl mx-auto px-4 py-8">
+      <main className="max-w-4xl mx-auto px-6 py-8">
         <div className="mb-8">
           <Link href="/">
             <Button 
@@ -174,12 +175,12 @@ export default function BlogPostPage() {
           </div>
         </div>
 
-        <article className="prose-blog">
-          <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-6 leading-tight">
+        <article className="blog-article">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-foreground mb-6 leading-tight font-serif">
             {post.title}
           </h1>
           
-          <div className="flex items-center text-slate-500 dark:text-slate-400 text-sm mb-8 space-x-6">
+          <div className="flex items-center text-gray-500 dark:text-muted-foreground text-sm mb-8 space-x-6">
             <span className="flex items-center">
               <Clock className="h-4 w-4 mr-2" />
               {post.readingTime || "5 min read"}
@@ -191,8 +192,8 @@ export default function BlogPostPage() {
           </div>
 
           <div 
-            className="text-xl text-slate-700 dark:text-slate-300 leading-relaxed space-y-6 prose prose-lg dark:prose-invert max-w-none"
-            dangerouslySetInnerHTML={{ __html: post.content.replace(/\n/g, '<br />') }}
+            className="markdown-content max-w-none"
+            dangerouslySetInnerHTML={{ __html: parseMarkdown(post.content) }}
           />
         </article>
       </main>

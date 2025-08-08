@@ -1,6 +1,7 @@
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { parseMarkdown } from "@/lib/markdown";
 import type { BlogPost } from "@shared/schema";
 
 interface ReadingModeProps {
@@ -32,9 +33,9 @@ export function ReadingMode({ post, isOpen, onClose }: ReadingModeProps) {
           </h1>
           
           <div 
-            className="text-xl text-amber-800 leading-relaxed space-y-8 font-serif"
+            className="reading-mode-content text-xl text-amber-800 leading-relaxed space-y-8 font-serif"
             style={{ lineHeight: '1.8' }}
-            dangerouslySetInnerHTML={{ __html: post.content.replace(/\n/g, '<br />') }}
+            dangerouslySetInnerHTML={{ __html: parseMarkdown(post.content) }}
           />
         </article>
       </div>
